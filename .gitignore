@@ -1,0 +1,7 @@
+# Track only the extension source and this allowlist.
+/*
+!/.gitignore
+!/extension/
+/extension/*
+!/extension/manifest.json
+!/extension/turtle.js

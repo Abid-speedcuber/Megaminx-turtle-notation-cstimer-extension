@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "csTimer Megaminx Turtle Notation",
+  "version": "1.0.0",
+  "description": "Adds Turtle notation beside Carrot in csTimer's Megaminx scramble menu.",
+  "minimum_chrome_version": "111",
+  "content_scripts": [
+    {
+      "matches": ["https://cstimer.net/*", "https://www.cstimer.net/*", "http://cstimer.net/*", "http://www.cstimer.net/*"],
+      "js": ["turtle.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}
