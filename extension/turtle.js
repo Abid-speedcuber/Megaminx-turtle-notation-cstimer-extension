@@ -18,7 +18,10 @@
       .map(row => row.replace(/~/g, " ").trim())
       .filter(Boolean)
       // Keep each five-arrow module together even when the viewport is narrow.
-      .map(row => row.replace(/\s+/g, "\u00a0"));
+      .map(row => row.replace(/\s+/g, "\u00a0")
+        // Reserve the apostrophe's cell; the zero-width word joiner keeps csTimer
+        // from trimming the final module's invisible padding.
+        .replace(/U$/, "U\u00a0\u2060"));
     const lines = [];
     for (let i = 0; i < modules.length; i += 2) {
       // Two em spaces provide a tab-sized gap and allow wrapping after U/U'.
