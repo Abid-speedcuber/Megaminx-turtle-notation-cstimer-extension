@@ -12,9 +12,19 @@
 
   function toTurtle(wca) {
     // csTimer uses ~ for non-breaking spaces and literal \\n for row breaks.
-    // Preserve those row breaks, U turns, and any surrounding formatting.
-    return wca.replace(/R(\+\+|--)[\s~]+D(\+\+|--)/g,
+    const converted = wca.replace(/R(\+\+|--)[\s~]+D(\+\+|--)/g,
       (_, right, down) => arrows[`${right} ${down}`]);
+    const modules = converted.split(/\\n|\r?\n/)
+      .map(row => row.replace(/~/g, " ").trim())
+      .filter(Boolean)
+      // Keep each five-arrow module together even when the viewport is narrow.
+      .map(row => row.replace(/\s+/g, "\u00a0"));
+    const lines = [];
+    for (let i = 0; i < modules.length; i += 2) {
+      // Two em spaces provide a tab-sized gap and allow wrapping after U/U'.
+      lines.push(modules.slice(i, i + 2).join("\u2003\u2003"));
+    }
+    return lines.join("\\n");
   }
 
   function addMenu(data) {
